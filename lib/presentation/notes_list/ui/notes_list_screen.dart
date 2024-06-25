@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_app/domain/note/note.dart';
 import 'package:simple_app/presentation/notes_list/cubit/notes_list_cubit.dart';
 
 class NotesListScreen extends StatelessWidget {
-  const NotesListScreen({super.key});
+  final void Function(Note note)? onDetail;
+
+  const NotesListScreen({this.onDetail, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,9 @@ class NotesListScreen extends StatelessWidget {
                       child: ListTile(
                         title: Text(update.notes[index].title),
                         subtitle: Text(update.notes[index].category),
-                        onTap: () {},
+                        onTap: () {
+                          onDetail?.call(update.notes[index]);
+                        },
                       ),
                     );
                   },

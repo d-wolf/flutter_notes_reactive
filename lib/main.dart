@@ -4,6 +4,10 @@ import 'package:simple_app/data/database/app_database.dart';
 import 'package:simple_app/data/note/notes_repository_impl.dart';
 import 'package:simple_app/domain/note/note.dart';
 import 'package:simple_app/domain/note/notes_repository.dart';
+import 'package:simple_app/presentation/note_detail/cubit/note_detail_cubit.dart';
+import 'package:simple_app/presentation/note_detail/ui/note_detail_screen.dart';
+import 'package:simple_app/presentation/note_edit/cubit/note_edit_cubit.dart';
+import 'package:simple_app/presentation/note_edit/ui/note_edit_screen.dart';
 import 'package:simple_app/presentation/notes_list/cubit/notes_list_cubit.dart';
 import 'package:simple_app/presentation/notes_list/ui/notes_list_screen.dart';
 
@@ -40,12 +44,40 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: BlocProvider(
-        create: (context) => NotesListCubit(
-          notesRepository: _notesRepository,
-        ),
-        child: const NotesListScreen(),
-      ),
+      home: Builder(builder: (context) {
+        return BlocProvider(
+          create: (context) => NotesListCubit(
+            notesRepository: _notesRepository,
+          ),
+          child: NotesListScreen(
+            onDetail: (note) {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (BuildContext context) {
+                return BlocProvider(
+                  create: (context) => NoteDetailCubit(
+                    note: note,
+                    notesRepository: _notesRepository,
+                  ),
+                  child: NoteDetailScreen(
+                    onEdit: (note) {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return BlocProvider(
+                          create: (context) => NoteEditCubit(
+                            note: note,
+                            notesRepository: _notesRepository,
+                          ),
+                          child: const NoteEditScreen(),
+                        );
+                      }));
+                    },
+                  ),
+                );
+              }));
+            },
+          ),
+        );
+      }),
     );
   }
 }
