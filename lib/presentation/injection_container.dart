@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:simple_app/data/database/app_database.dart';
 import 'package:simple_app/data/note/notes_repository_impl.dart';
-import 'package:simple_app/domain/note/note.dart';
 import 'package:simple_app/domain/note/notes_repository.dart';
 import 'package:simple_app/presentation/note_add/cubit/note_add_cubit.dart';
 import 'package:simple_app/presentation/note_detail/cubit/note_detail_cubit.dart';

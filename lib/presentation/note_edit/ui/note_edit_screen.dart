@@ -40,24 +40,34 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      TextField(
+                      TextFormField(
+                        key: const Key('form_field_title'),
                         controller: _textEditingControllerTitle,
+                        decoration: const InputDecoration(
+                            hintText: 'e.g. Shopping List',
+                            label: Text('Title')),
                       ),
                       const SizedBox(
                         height: 16,
                       ),
-                      TextField(
+                      TextFormField(
+                        key: const Key('form_field_category'),
                         controller: _textEditingControllerCategory,
+                        decoration: const InputDecoration(
+                            hintText: 'e.g. buy', label: Text('Category')),
                       ),
                       const SizedBox(
                         height: 16,
                       ),
                       Expanded(
-                        child: TextField(
+                        child: TextFormField(
+                          key: const Key('form_field_content'),
                           controller: _textEditingControllerContent,
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
                           expands: true,
+                          decoration:
+                              const InputDecoration(label: Text('Text')),
                         ),
                       )
                     ],

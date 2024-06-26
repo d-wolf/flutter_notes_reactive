@@ -75,7 +75,7 @@ class _NoteAddScreenState extends State<NoteAddScreen> {
               ),
               floatingActionButton: FloatingActionButton(
                 key: const Key('save'),
-                onPressed: () {
+                onPressed: () async {
                   context.read<NoteAddCubit>().onAdd(
                         _textEditingControllerTitle.text,
                         _textEditingControllerCategory.text,

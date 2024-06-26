@@ -27,7 +27,10 @@ class NoteDetailScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(update.note.category),
+                        ListTile(
+                          title: const Text('Category'),
+                          subtitle: Text(update.note.category),
+                        ),
                         const SizedBox(
                           height: 16,
                         ),
