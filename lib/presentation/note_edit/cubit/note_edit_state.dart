@@ -7,6 +7,13 @@ sealed class NoteEditState extends Equatable {
   List<Object> get props => [];
 }
 
+final class NoteEditLoading extends NoteEditState {
+  const NoteEditLoading();
+
+  @override
+  List<Object> get props => [];
+}
+
 final class NoteEditUpdate extends NoteEditState {
   final Note note;
 

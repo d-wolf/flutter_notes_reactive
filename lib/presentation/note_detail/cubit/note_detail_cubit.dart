@@ -13,11 +13,11 @@ class NoteDetailCubit extends Cubit<NoteDetailState> {
   StreamSubscription<Note?>? _sub;
 
   NoteDetailCubit(
-      {required Note note, required NotesRepository notesRepository})
+      {required int noteId, required NotesRepository notesRepository})
       : _notesRepository = notesRepository,
         super(const NoteDetailLoading()) {
-    _sub = _notesRepository.getNoteStream(note.id!).listen((note) {
-      if (note != null) {
+    _sub = _notesRepository.getNoteStream(noteId).listen((note) {
+      if (note != null && !isClosed) {
         emit(NoteDetailUpdate(note: note));
       }
     });
@@ -26,6 +26,6 @@ class NoteDetailCubit extends Cubit<NoteDetailState> {
   @override
   Future<void> close() async {
     await super.close();
-    _sub?.cancel();
+    await _sub?.cancel();
   }
 }

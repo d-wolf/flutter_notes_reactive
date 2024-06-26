@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_app/domain/note/note.dart';
 import 'package:simple_app/presentation/note_edit/cubit/note_edit_cubit.dart';
 
 class NoteEditScreen extends StatefulWidget {
@@ -34,29 +33,43 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
             return Scaffold(
               appBar: AppBar(
                 title: Text(update.note.title),
+                backgroundColor: Theme.of(context).colorScheme.primaryFixedDim,
               ),
-              body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: _textEditingControllerTitle,
-                    ),
-                    TextField(
-                      controller: _textEditingControllerCategory,
-                    ),
-                    TextField(
-                      controller: _textEditingControllerContent,
-                    )
-                  ],
+              body: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: _textEditingControllerTitle,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      TextField(
+                        controller: _textEditingControllerCategory,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Expanded(
+                        child: TextField(
+                          controller: _textEditingControllerContent,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          expands: true,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
                   context.read<NoteEditCubit>().onUpdate(
-                        Note(
-                            title: _textEditingControllerTitle.text,
-                            category: _textEditingControllerCategory.text,
-                            content: _textEditingControllerContent.text),
+                        _textEditingControllerTitle.text,
+                        _textEditingControllerCategory.text,
+                        _textEditingControllerContent.text,
                       );
                 },
                 child: const Icon(Icons.save),
@@ -64,7 +77,9 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
             );
           default:
             return Scaffold(
-              appBar: AppBar(),
+              appBar: AppBar(
+                backgroundColor: Theme.of(context).colorScheme.primaryFixedDim,
+              ),
               body: const Center(
                 child: CircularProgressIndicator(),
               ),

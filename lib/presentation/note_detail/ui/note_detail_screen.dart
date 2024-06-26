@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_app/domain/note/note.dart';
+import 'package:go_router/go_router.dart';
+import 'package:simple_app/presentation/app_router.dart';
 import 'package:simple_app/presentation/note_detail/cubit/note_detail_cubit.dart';
 
 class NoteDetailScreen extends StatelessWidget {
-  final void Function(Note note)? onEdit;
-
-  const NoteDetailScreen({this.onEdit, super.key});
+  const NoteDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +16,24 @@ class NoteDetailScreen extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 title: Text(update.note.title),
+                backgroundColor: Theme.of(context).colorScheme.primaryFixedDim,
               ),
               body: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Expanded(
-                  child: Card(
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(update.note.category),
                         const SizedBox(
-                          height: 8,
+                          height: 16,
+                        ),
+                        const Divider(),
+                        const SizedBox(
+                          height: 16,
                         ),
                         Text(update.note.content),
                       ],
@@ -38,14 +44,17 @@ class NoteDetailScreen extends StatelessWidget {
               floatingActionButton: FloatingActionButton(
                 child: const Icon(Icons.edit),
                 onPressed: () {
-                  onEdit?.call(update.note);
+                  context.push(RouterPaths.noteEdit, extra: update.note.id);
                 },
               ),
             );
 
           default:
-            return const Scaffold(
-              body: Center(
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: Theme.of(context).colorScheme.primaryFixedDim,
+              ),
+              body: const Center(
                 child: CircularProgressIndicator(),
               ),
             );
