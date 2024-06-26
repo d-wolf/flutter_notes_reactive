@@ -22,10 +22,10 @@ class NoteEditCubit extends Cubit<NoteEditState> {
     });
   }
 
-  void onUpdate(String title, String category, String content) {
+  Future<void> onUpdate(String title, String category, String content) async {
     switch (state) {
       case NoteEditUpdate update:
-        _notesRepository.updateNote(Note(
+        await _notesRepository.updateNote(Note(
             id: update.note.id,
             title: title,
             category: category,

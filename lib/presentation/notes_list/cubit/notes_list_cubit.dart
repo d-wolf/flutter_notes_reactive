@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_app/domain/note/note.dart';
 import 'package:simple_app/domain/note/notes_repository.dart';
@@ -19,7 +20,7 @@ class NotesListCubit extends Cubit<NotesListState> {
     });
   }
 
-  void onDelete(Note note) async {
+  Future<void> onDelete(Note note) async {
     await _notesRepository.deleteNote(note);
   }
 

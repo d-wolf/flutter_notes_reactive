@@ -2,6 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simple_app/presentation/injection_container.dart';
+import 'package:simple_app/presentation/note_add/cubit/note_add_cubit.dart';
+import 'package:simple_app/presentation/note_add/ui/note_add_screen.dart';
 import 'package:simple_app/presentation/note_detail/cubit/note_detail_cubit.dart';
 import 'package:simple_app/presentation/note_detail/ui/note_detail_screen.dart';
 import 'package:simple_app/presentation/note_edit/cubit/note_edit_cubit.dart';
@@ -14,6 +16,7 @@ class RouterPaths {
 
   static const String notesList = '/notes_list';
   static const String noteDetail = '/note_detail';
+  static const String noteAdd = '/note_add';
   static const String noteEdit = '/note_edit';
 }
 
@@ -36,6 +39,13 @@ class AppRouter {
           builder: (context, state) => BlocProvider<NoteDetailCubit>(
             create: (_) => sl(param1: state.extra! as int),
             child: const NoteDetailScreen(),
+          ),
+        ),
+        GoRoute(
+          path: RouterPaths.noteAdd,
+          builder: (context, state) => BlocProvider<NoteAddCubit>(
+            create: (_) => sl(),
+            child: const NoteAddScreen(),
           ),
         ),
         GoRoute(

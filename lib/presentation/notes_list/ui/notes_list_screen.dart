@@ -10,53 +10,60 @@ class NotesListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Notes'),
-          backgroundColor: Theme.of(context).colorScheme.primaryFixedDim,
-        ),
-        body: BlocBuilder<NotesListCubit, NotesListState>(
-          builder: (context, state) {
-            switch (state) {
-              case NotesListUpdate update:
-                return ListView.separated(
-                  itemCount: update.notes.length,
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const Divider(
-                    height: 1,
-                    indent: 8,
-                    endIndent: 8,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    return Dismissible(
-                      key: ValueKey(update.notes[index].id),
-                      background: Container(
-                        color: Theme.of(context).colorScheme.error,
-                      ),
-                      onDismissed: (direction) {
-                        context
-                            .read<NotesListCubit>()
-                            .onDelete(update.notes[index]);
+      appBar: AppBar(
+        title: const Text('Notes'),
+        backgroundColor: Theme.of(context).colorScheme.primaryFixedDim,
+      ),
+      body: BlocBuilder<NotesListCubit, NotesListState>(
+        builder: (context, state) {
+          switch (state) {
+            case NotesListUpdate update:
+              return ListView.separated(
+                itemCount: update.notes.length,
+                separatorBuilder: (BuildContext context, int index) =>
+                    const Divider(
+                  height: 1,
+                  indent: 8,
+                  endIndent: 8,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  return Dismissible(
+                    key: ValueKey(update.notes[index].id),
+                    background: Container(
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+                    onDismissed: (direction) {
+                      context
+                          .read<NotesListCubit>()
+                          .onDelete(update.notes[index]);
+                    },
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.all(8),
+                      title: Text(update.notes[index].title),
+                      subtitle: Text(update.notes[index].category),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () {
+                        context.push(RouterPaths.noteDetail,
+                            extra: update.notes[index].id);
                       },
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.all(8),
-                        title: Text(update.notes[index].title),
-                        subtitle: Text(update.notes[index].category),
-                        trailing: const Icon(Icons.chevron_right),
-                        onTap: () {
-                          context.push(RouterPaths.noteDetail,
-                              extra: update.notes[index].id);
-                        },
-                      ),
-                    );
-                  },
-                );
+                    ),
+                  );
+                },
+              );
 
-              default:
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-            }
-          },
-        ));
+            default:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+          }
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+          key: const Key('add'),
+          child: const Icon(Icons.add),
+          onPressed: () {
+            context.push(RouterPaths.noteAdd);
+          }),
+    );
   }
 }

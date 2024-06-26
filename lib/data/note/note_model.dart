@@ -3,7 +3,7 @@ import 'package:simple_app/data/database/app_database.dart';
 import 'package:simple_app/domain/note/note.dart';
 
 class NoteModel extends Note {
-  NoteModel({
+  const NoteModel({
     required super.id,
     required super.title,
     required super.category,

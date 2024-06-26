@@ -11,22 +11,72 @@ class MockNotesRepository extends Mock implements NotesRepository {}
 
 void main() {
   late MockNotesRepository repository;
-  final getNotesStreamController = StreamController<List<Note>>();
+  late StreamController<List<Note>> getNotesStreamController;
 
   setUp(() {
+    registerFallbackValue(const Note(
+      id: 1,
+      title: '',
+      category: '',
+      content: '',
+    ));
+
     repository = MockNotesRepository();
-    when(repository.getNotesStream)
-        .thenAnswer((_) => getNotesStreamController.stream);
+    getNotesStreamController = StreamController<List<Note>>();
   });
 
   blocTest(
     'emits NotesListUpdate with empty list',
-    build: () {
-      return NotesListCubit(notesRepository: repository);
-    },
-    act: (bloc) {
+    setUp: () {
+      when(repository.getNotesStream)
+          .thenAnswer((_) => getNotesStreamController.stream);
+
       getNotesStreamController.add([]);
     },
+    build: () => NotesListCubit(notesRepository: repository),
     expect: () => [const NotesListUpdate(notes: [])],
   );
+
+  blocTest(
+    'emits NotesListUpdate with item',
+    setUp: () {
+      when(repository.getNotesStream)
+          .thenAnswer((_) => getNotesStreamController.stream);
+
+      getNotesStreamController.add([
+        const Note(
+          id: 1,
+          title: 'title',
+          category: 'category',
+          content: 'content',
+        )
+      ]);
+    },
+    build: () => NotesListCubit(notesRepository: repository),
+    expect: () => [
+      const NotesListUpdate(notes: [
+        Note(
+          id: 1,
+          title: 'title',
+          category: 'category',
+          content: 'content',
+        )
+      ])
+    ],
+  );
+
+  test('delete note called', () async {
+    const note =
+        Note(id: 1, title: 'title', category: 'category', content: 'content');
+    when(repository.getNotesStream)
+        .thenAnswer((_) => getNotesStreamController.stream);
+    when(() => repository.deleteNote(any())).thenAnswer((_) => Future.value(1));
+    getNotesStreamController.add([note]);
+
+    final cubit = NotesListCubit(notesRepository: repository);
+
+    await cubit.onDelete(note);
+
+    verify(() => repository.deleteNote(any())).called(1);
+  });
 }
