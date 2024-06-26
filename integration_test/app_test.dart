@@ -32,6 +32,7 @@ void main() async {
       await tester.pumpAndSettle();
 
       expect(find.text('title'), findsOneWidget);
+      expect(find.text('Category'), findsOneWidget);
     });
   });
 }
