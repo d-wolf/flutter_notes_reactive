@@ -11,22 +11,21 @@ class MockNotesRepository extends Mock implements NotesRepository {}
 
 void main() {
   late MockNotesRepository repository;
-
-  final notesStreamController = StreamController<List<Note>>();
+  final getNotesStreamController = StreamController<List<Note>>();
 
   setUp(() {
     repository = MockNotesRepository();
+    when(repository.getNotesStream)
+        .thenAnswer((_) => getNotesStreamController.stream);
   });
 
   blocTest(
     'emits NotesListUpdate with empty list',
     build: () {
-      when(repository.getNotesStream)
-          .thenAnswer((_) => notesStreamController.stream);
       return NotesListCubit(notesRepository: repository);
     },
     act: (bloc) {
-      notesStreamController.add([]);
+      getNotesStreamController.add([]);
     },
     expect: () => [const NotesListUpdate(notes: [])],
   );
