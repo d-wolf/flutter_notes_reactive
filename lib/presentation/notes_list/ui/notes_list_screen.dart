@@ -7,7 +7,10 @@ import 'package:simple_app/presentation/notes_list/ui/notes_grid_widget.dart';
 import 'package:simple_app/presentation/notes_list/ui/notes_list_widget.dart';
 
 class NotesListScreen extends StatelessWidget {
-  static const addKey = 'add';
+  static const buttonAddKey = 'ADD';
+  static const buttonSwitchViewKey = 'BUTTON_SWITCH_VIEW';
+  static const itemsListKey = 'ITEMS_LIST';
+  static const itemsGridKey = 'ITEMS_GRID';
 
   const NotesListScreen({super.key});
 
@@ -23,6 +26,7 @@ class NotesListScreen extends StatelessWidget {
                 backgroundColor: Theme.of(context).colorScheme.primaryFixedDim,
                 actions: [
                   IconButton(
+                      key: const Key(buttonSwitchViewKey),
                       onPressed: () {
                         context.read<NotesListCubit>().onSwitchLayout();
                       },
@@ -32,6 +36,7 @@ class NotesListScreen extends StatelessWidget {
               ),
               body: update.isListView
                   ? NotesListWidget(
+                      key: const Key(itemsListKey),
                       notes: update.notes,
                       onNote: (note) {
                         context.push(RouterPaths.noteDetail, extra: note.id);
@@ -41,6 +46,7 @@ class NotesListScreen extends StatelessWidget {
                       },
                     )
                   : NotesGridWidget(
+                      key: const Key(itemsGridKey),
                       notes: update.notes,
                       onNote: (note) {
                         context.push(RouterPaths.noteDetail, extra: note.id);
@@ -50,7 +56,7 @@ class NotesListScreen extends StatelessWidget {
                       },
                     ),
               floatingActionButton: FloatingActionButton(
-                  key: const Key(addKey),
+                  key: const Key(buttonAddKey),
                   child: const Icon(Icons.add),
                   onPressed: () {
                     context.push(RouterPaths.noteAdd);

@@ -22,12 +22,10 @@ class NotesListCubit extends Cubit<NotesListState> {
         _settingsRepository = settingsRepository,
         super(const NotesListLoading()) {
     _sub = CombineLatestStream.combine2(
-      _notesRepository.getNotesStream(),
-      _settingsRepository.isListViewStream(),
-      (notes, isListView) {
-        return NotesListUpdate(notes: notes, isListView: isListView);
-      },
-    ).listen(emit);
+        _notesRepository.getNotesStream(),
+        _settingsRepository.isListViewStream(),
+        (notes, isListView) =>
+            NotesListUpdate(notes: notes, isListView: isListView)).listen(emit);
   }
 
   Future<void> onDelete(Note note) async {

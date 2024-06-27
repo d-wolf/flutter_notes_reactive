@@ -28,7 +28,7 @@ void main() {
     )));
 
     await tester.pumpAndSettle();
-    final save = find.byKey(const ValueKey(NoteAddScreen.saveKey));
+    final save = find.byKey(const ValueKey(NoteAddScreen.buttonSaveKey));
     await tester.tap(save);
     verify(() => cubit.onAdd(any(), any(), any())).called(1);
   });

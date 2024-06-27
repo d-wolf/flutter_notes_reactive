@@ -7,7 +7,7 @@ class NoteAddScreen extends StatefulWidget {
   static const formFieldTitleKey = 'form_field_title';
   static const formFieldCategoryKey = 'form_field_category';
   static const formFieldContentKey = 'form_field_content';
-  static const saveKey = 'save';
+  static const buttonSaveKey = 'save';
 
   const NoteAddScreen({super.key});
 
@@ -79,7 +79,7 @@ class _NoteAddScreenState extends State<NoteAddScreen> {
                 ),
               ),
               floatingActionButton: FloatingActionButton(
-                key: const Key(NoteAddScreen.saveKey),
+                key: const Key(NoteAddScreen.buttonSaveKey),
                 onPressed: () async {
                   context.read<NoteAddCubit>().onAdd(
                         _textEditingControllerTitle.text,
