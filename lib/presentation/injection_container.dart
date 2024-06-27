@@ -27,7 +27,7 @@ Future<void> setupServiceLocator() async {
   sl.registerLazySingleton<SettingsRepository>(
       () => SettingsRepositoryImpl(source: sl()));
   sl.registerLazySingleton<SettingsDataSource>(
-      () => SettingsDataSource(prefs: prefs));
+      () => SettingsDataSource(prefs: RxSharedPreferences(prefs)));
   sl.registerLazySingleton<NotesRepository>(
       () => NotesRepositoryImpl(dao: db.notesDao));
 }
