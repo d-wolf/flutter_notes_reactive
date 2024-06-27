@@ -30,7 +30,8 @@ class AppRouter {
         GoRoute(
           path: RouterPaths.notesList,
           builder: (context, state) => BlocProvider<NotesListCubit>(
-            create: (_) => NotesListCubit(notesRepository: sl()),
+            create: (_) =>
+                NotesListCubit(notesRepository: sl(), settingsRepository: sl()),
             child: const NotesListScreen(),
           ),
         ),

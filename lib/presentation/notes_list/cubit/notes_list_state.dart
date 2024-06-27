@@ -15,9 +15,10 @@ final class NotesListLoading extends NotesListState {
 
 final class NotesListUpdate extends NotesListState {
   final List<Note> notes;
+  final bool isListView;
 
-  const NotesListUpdate({required this.notes});
+  const NotesListUpdate({required this.notes, required this.isListView});
 
   @override
-  List<Object> get props => [notes];
+  List<Object> get props => [notes, isListView];
 }
