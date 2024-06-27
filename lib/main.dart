@@ -29,7 +29,9 @@ class _NotesAppState extends State<NotesApp> {
     return MaterialApp.router(
       title: 'Notes App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.indigo,
+            brightness: View.of(context).platformDispatcher.platformBrightness),
         useMaterial3: true,
       ),
       routerConfig: router,

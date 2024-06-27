@@ -21,7 +21,7 @@ class NoteDetailScreen extends StatelessWidget {
               appBar: AppBar(
                 title:
                     Text(key: const Key(textFieldTitleKey), update.note.title),
-                backgroundColor: Theme.of(context).colorScheme.primaryFixedDim,
+                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
               ),
               body: Padding(
                 padding: const EdgeInsets.all(8.0),

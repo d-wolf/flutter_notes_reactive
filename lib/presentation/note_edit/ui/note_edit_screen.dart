@@ -38,7 +38,7 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
             return Scaffold(
               appBar: AppBar(
                 title: Text(update.note.title),
-                backgroundColor: Theme.of(context).colorScheme.primaryFixedDim,
+                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
               ),
               body: Card(
                 child: Padding(

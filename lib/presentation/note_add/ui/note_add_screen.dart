@@ -37,7 +37,7 @@ class _NoteAddScreenState extends State<NoteAddScreen> {
             return Scaffold(
               appBar: AppBar(
                 title: const Text('Add note'),
-                backgroundColor: Theme.of(context).colorScheme.primaryFixedDim,
+                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
               ),
               body: Card(
                 child: Padding(

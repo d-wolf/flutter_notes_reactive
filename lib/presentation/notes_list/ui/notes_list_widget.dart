@@ -12,6 +12,7 @@ class NotesListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: const EdgeInsets.all(8.0),
       itemCount: notes.length,
       itemBuilder: (BuildContext context, int index) {
         return Dismissible(

@@ -23,7 +23,7 @@ class NotesListScreen extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 title: const Text('Notes'),
-                backgroundColor: Theme.of(context).colorScheme.primaryFixedDim,
+                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
                 actions: [
                   IconButton(
                       key: const Key(buttonSwitchViewKey),
