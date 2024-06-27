@@ -11,7 +11,11 @@ class MockNotesRepository extends Mock implements NotesRepository {}
 
 void main() {
   var eNote = const Note(
-      id: 1, title: 'title', category: 'category', content: 'content');
+    id: 1,
+    title: 'titleString',
+    category: 'categoryString',
+    content: 'contentString',
+  );
 
   late MockNotesRepository repository;
 

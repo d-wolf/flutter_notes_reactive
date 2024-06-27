@@ -11,7 +11,11 @@ class MockNotesRepository extends Mock implements NotesRepository {}
 
 void main() {
   var eNote = const Note(
-      id: 1, title: 'title', category: 'category', content: 'content');
+    id: 1,
+    title: 'titleString',
+    category: 'categoryString',
+    content: 'contentString',
+  );
 
   late MockNotesRepository repository;
   late StreamController<Note> getNoteStreamController;
@@ -26,7 +30,7 @@ void main() {
   blocTest(
     'emits NoteDetailUpdate with note',
     build: () {
-      return NoteDetailCubit(noteId: 1, notesRepository: repository);
+      return NoteDetailCubit(noteId: eNote.id!, notesRepository: repository);
     },
     act: (bloc) {
       getNoteStreamController.add(eNote);

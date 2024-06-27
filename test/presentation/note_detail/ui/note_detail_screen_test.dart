@@ -12,6 +12,13 @@ import 'package:simple_app/presentation/note_detail/ui/note_detail_screen.dart';
 class MockNotesRepository extends Mock implements NotesRepository {}
 
 void main() {
+  var eNote = const Note(
+    id: 1,
+    title: 'titleString',
+    category: 'categoryString',
+    content: 'contentString',
+  );
+
   late MockNotesRepository repository;
   final getNoteStreamController = StreamController<Note>();
 
@@ -30,13 +37,12 @@ void main() {
       }),
     )));
 
-    getNoteStreamController.add(const Note(
-        id: 1, title: 'title', category: 'category', content: 'content'));
+    getNoteStreamController.add(eNote);
 
     await tester.pumpAndSettle();
 
-    expect(find.text('title'), findsOneWidget);
-    expect(find.text('category'), findsOneWidget);
-    expect(find.text('content'), findsOneWidget);
+    expect(find.text(eNote.title), findsOneWidget);
+    expect(find.text(eNote.category), findsOneWidget);
+    expect(find.text(eNote.content), findsOneWidget);
   });
 }

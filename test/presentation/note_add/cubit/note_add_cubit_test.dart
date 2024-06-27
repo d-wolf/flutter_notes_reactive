@@ -7,15 +7,17 @@ import 'package:simple_app/presentation/note_add/cubit/note_add_cubit.dart';
 class MockNotesRepository extends Mock implements NotesRepository {}
 
 void main() {
+  var eNote = const Note(
+    id: 1,
+    title: 'titleString',
+    category: 'categoryString',
+    content: 'contentString',
+  );
+
   late MockNotesRepository repository;
 
   setUp(() {
-    registerFallbackValue(const Note(
-      id: 1,
-      title: '',
-      category: '',
-      content: '',
-    ));
+    registerFallbackValue(eNote);
     repository = MockNotesRepository();
   });
 
@@ -23,7 +25,7 @@ void main() {
     when(() => repository.insertNote(any())).thenAnswer((_) => Future.value(1));
     final cubit = NoteAddCubit(notesRepository: repository);
 
-    await cubit.onAdd('title', 'category', 'content');
+    await cubit.onAdd(eNote.title, eNote.category, eNote.content);
 
     verify(() => repository.insertNote(any())).called(1);
   });

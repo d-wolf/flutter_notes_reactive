@@ -17,7 +17,11 @@ class MockNoteEditCubit extends MockCubit<NoteEditState>
 
 void main() {
   var eNote = const Note(
-      id: 1, title: 'title', category: 'category', content: 'content');
+    id: 1,
+    title: 'titleString',
+    category: 'categoryString',
+    content: 'contentString',
+  );
 
   testWidgets('add update pressed', (WidgetTester tester) async {
     final cubit = MockNoteEditCubit();
@@ -63,9 +67,25 @@ void main() {
       }),
     )));
 
-    await tester.pumpAndSettle(Durations.extralong4);
+    await tester.pumpAndSettle();
 
-    expect(find.text('category'), findsOneWidget);
-    expect(find.text('content'), findsOneWidget);
+    expect(
+        find.ancestor(
+          of: find.text(eNote.title),
+          matching: find.byType(TextFormField),
+        ),
+        findsOneWidget);
+    expect(
+        find.ancestor(
+          of: find.text(eNote.category),
+          matching: find.byType(TextFormField),
+        ),
+        findsOneWidget);
+    expect(
+        find.ancestor(
+          of: find.text(eNote.content),
+          matching: find.byType(TextFormField),
+        ),
+        findsOneWidget);
   });
 }
