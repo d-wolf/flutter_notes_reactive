@@ -14,9 +14,6 @@ import 'package:simple_app/presentation/notes_list/cubit/notes_list_cubit.dart';
 final sl = GetIt.instance;
 
 Future<void> setupServiceLocator() async {
-  final db = AppDatabase();
-  final prefs = await SharedPreferences.getInstance();
-
   sl.registerFactory<NotesListCubit>(
       () => NotesListCubit(notesRepository: sl(), settingsRepository: sl()));
   sl.registerFactoryParam<NoteDetailCubit, int, void>(
@@ -26,8 +23,12 @@ Future<void> setupServiceLocator() async {
   sl.registerFactory<NoteAddCubit>(() => NoteAddCubit(notesRepository: sl()));
   sl.registerLazySingleton<SettingsRepository>(
       () => SettingsRepositoryImpl(source: sl()));
+
+  final prefs = await SharedPreferences.getInstance();
   sl.registerLazySingleton<SettingsDataSource>(
       () => SettingsDataSource(prefs: RxSharedPreferences(prefs)));
+
+  final db = AppDatabase();
   sl.registerLazySingleton<NotesRepository>(
       () => NotesRepositoryImpl(dao: db.notesDao));
 }
