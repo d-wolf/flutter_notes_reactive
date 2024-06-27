@@ -4,6 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:simple_app/presentation/note_add/cubit/note_add_cubit.dart';
 
 class NoteAddScreen extends StatefulWidget {
+  static const formFieldTitleKey = 'form_field_title';
+  static const formFieldCategoryKey = 'form_field_category';
+  static const formFieldContentKey = 'form_field_content';
+  static const saveKey = 'save';
+
   const NoteAddScreen({super.key});
 
   @override
@@ -40,7 +45,7 @@ class _NoteAddScreenState extends State<NoteAddScreen> {
                   child: Column(
                     children: [
                       TextFormField(
-                        key: const Key('form_field_title'),
+                        key: const Key(NoteAddScreen.formFieldTitleKey),
                         controller: _textEditingControllerTitle,
                         decoration: const InputDecoration(
                             hintText: 'e.g. Shopping List',
@@ -50,7 +55,7 @@ class _NoteAddScreenState extends State<NoteAddScreen> {
                         height: 16,
                       ),
                       TextFormField(
-                        key: const Key('form_field_category'),
+                        key: const Key(NoteAddScreen.formFieldCategoryKey),
                         controller: _textEditingControllerCategory,
                         decoration: const InputDecoration(
                             hintText: 'e.g. buy', label: Text('Category')),
@@ -60,7 +65,7 @@ class _NoteAddScreenState extends State<NoteAddScreen> {
                       ),
                       Expanded(
                         child: TextFormField(
-                          key: const Key('form_field_content'),
+                          key: const Key(NoteAddScreen.formFieldContentKey),
                           controller: _textEditingControllerContent,
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
@@ -74,7 +79,7 @@ class _NoteAddScreenState extends State<NoteAddScreen> {
                 ),
               ),
               floatingActionButton: FloatingActionButton(
-                key: const Key('save'),
+                key: const Key(NoteAddScreen.saveKey),
                 onPressed: () async {
                   context.read<NoteAddCubit>().onAdd(
                         _textEditingControllerTitle.text,

@@ -3,6 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_app/presentation/note_edit/cubit/note_edit_cubit.dart';
 
 class NoteEditScreen extends StatefulWidget {
+  static const formFieldTitleKey = 'form_field_title';
+  static const formFieldCategoryKey = 'form_field_category';
+  static const formFieldContentKey = 'form_field_content';
+  static const updateKey = 'update';
+
   const NoteEditScreen({super.key});
 
   @override
@@ -41,7 +46,7 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
                   child: Column(
                     children: [
                       TextFormField(
-                        key: const Key('form_field_title'),
+                        key: const Key(NoteEditScreen.formFieldTitleKey),
                         controller: _textEditingControllerTitle,
                         decoration: const InputDecoration(
                             hintText: 'e.g. Shopping List',
@@ -51,7 +56,7 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
                         height: 16,
                       ),
                       TextFormField(
-                        key: const Key('form_field_category'),
+                        key: const Key(NoteEditScreen.formFieldCategoryKey),
                         controller: _textEditingControllerCategory,
                         decoration: const InputDecoration(
                             hintText: 'e.g. buy', label: Text('Category')),
@@ -61,7 +66,7 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
                       ),
                       Expanded(
                         child: TextFormField(
-                          key: const Key('form_field_content'),
+                          key: const Key(NoteEditScreen.formFieldContentKey),
                           controller: _textEditingControllerContent,
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
@@ -75,6 +80,7 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
                 ),
               ),
               floatingActionButton: FloatingActionButton(
+                key: const Key(NoteEditScreen.updateKey),
                 onPressed: () {
                   context.read<NoteEditCubit>().onUpdate(
                         _textEditingControllerTitle.text,
