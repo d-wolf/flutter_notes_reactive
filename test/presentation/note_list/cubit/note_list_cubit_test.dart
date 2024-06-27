@@ -13,18 +13,16 @@ class MockNotesRepository extends Mock implements NotesRepository {}
 class MockSettingsRepository extends Mock implements SettingsRepository {}
 
 void main() {
+  var eNote = const Note(
+      id: 1, title: 'title', category: 'category', content: 'content');
+
   late MockNotesRepository notesRepository;
   late MockSettingsRepository settingsRepository;
   late StreamController<List<Note>> getNotesStreamController;
   late StreamController<bool> getIsListViewStreamController;
 
   setUp(() {
-    registerFallbackValue(const Note(
-      id: 1,
-      title: '',
-      category: '',
-      content: '',
-    ));
+    registerFallbackValue(eNote);
 
     notesRepository = MockNotesRepository();
     settingsRepository = MockSettingsRepository();
@@ -57,14 +55,7 @@ void main() {
       when(settingsRepository.isListViewStream)
           .thenAnswer((_) => getIsListViewStreamController.stream);
 
-      getNotesStreamController.add([
-        const Note(
-          id: 1,
-          title: 'title',
-          category: 'category',
-          content: 'content',
-        )
-      ]);
+      getNotesStreamController.add([eNote]);
       getIsListViewStreamController.add(true);
     },
     build: () => NotesListCubit(
@@ -72,20 +63,11 @@ void main() {
       settingsRepository: settingsRepository,
     ),
     expect: () => [
-      const NotesListUpdate(notes: [
-        Note(
-          id: 1,
-          title: 'title',
-          category: 'category',
-          content: 'content',
-        )
-      ], isListView: true)
+      NotesListUpdate(notes: [eNote], isListView: true)
     ],
   );
 
   test('delete note called', () async {
-    const note =
-        Note(id: 1, title: 'title', category: 'category', content: 'content');
     when(notesRepository.getNotesStream)
         .thenAnswer((_) => getNotesStreamController.stream);
     when(() => notesRepository.deleteNote(any()))
@@ -93,7 +75,7 @@ void main() {
     when(settingsRepository.isListViewStream)
         .thenAnswer((_) => getIsListViewStreamController.stream);
 
-    getNotesStreamController.add([note]);
+    getNotesStreamController.add([eNote]);
     getIsListViewStreamController.add(true);
 
     final cubit = NotesListCubit(
@@ -101,7 +83,7 @@ void main() {
       settingsRepository: settingsRepository,
     );
 
-    await cubit.onDelete(note);
+    await cubit.onDelete(eNote);
 
     verify(() => notesRepository.deleteNote(any())).called(1);
   });

@@ -12,7 +12,7 @@ void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   setUpAll(() async {
-    await init();
+    await setupServiceLocator();
   });
 
   testWidgets('add note to list', (tester) async {

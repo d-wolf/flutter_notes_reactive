@@ -6,7 +6,7 @@ class NoteEditScreen extends StatefulWidget {
   static const formFieldTitleKey = 'form_field_title';
   static const formFieldCategoryKey = 'form_field_category';
   static const formFieldContentKey = 'form_field_content';
-  static const updateKey = 'update';
+  static const buttonUpdateKey = 'update';
 
   const NoteEditScreen({super.key});
 
@@ -80,7 +80,7 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
                 ),
               ),
               floatingActionButton: FloatingActionButton(
-                key: const Key(NoteEditScreen.updateKey),
+                key: const Key(NoteEditScreen.buttonUpdateKey),
                 onPressed: () {
                   context.read<NoteEditCubit>().onUpdate(
                         _textEditingControllerTitle.text,

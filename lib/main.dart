@@ -4,7 +4,7 @@ import 'package:simple_app/presentation/injection_container.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await init();
+  await setupServiceLocator();
   runApp(const NotesApp());
 }
 

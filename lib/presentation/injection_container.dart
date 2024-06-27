@@ -13,7 +13,7 @@ import 'package:simple_app/presentation/notes_list/cubit/notes_list_cubit.dart';
 
 final sl = GetIt.instance;
 
-Future<void> init() async {
+Future<void> setupServiceLocator() async {
   final db = AppDatabase();
   final prefs = await SharedPreferences.getInstance();
 
