@@ -11,13 +11,8 @@ class NotesListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
+    return ListView.builder(
       itemCount: notes.length,
-      separatorBuilder: (BuildContext context, int index) => const Divider(
-        height: 1,
-        indent: 8,
-        endIndent: 8,
-      ),
       itemBuilder: (BuildContext context, int index) {
         return Dismissible(
           key: ValueKey(notes[index].id),
@@ -27,14 +22,21 @@ class NotesListWidget extends StatelessWidget {
           onDismissed: (direction) {
             onDelete?.call(notes[index]);
           },
-          child: ListTile(
-            contentPadding: const EdgeInsets.all(8),
-            title: Text(notes[index].title),
-            subtitle: Text(notes[index].category),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () {
-              onNote?.call(notes[index]);
-            },
+          child: Card(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(4),
+              ),
+            ),
+            child: ListTile(
+              contentPadding: const EdgeInsets.all(8),
+              title: Text(notes[index].title),
+              subtitle: Text(notes[index].category),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () {
+                onNote?.call(notes[index]);
+              },
+            ),
           ),
         );
       },
