@@ -25,9 +25,10 @@ class NotesListWidget extends StatelessWidget {
           child: Card(
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
-                Radius.circular(4),
+                Radius.circular(12),
               ),
             ),
+            clipBehavior: Clip.antiAlias,
             child: ListTile(
               contentPadding: const EdgeInsets.all(8),
               title: Text(notes[index].title),
