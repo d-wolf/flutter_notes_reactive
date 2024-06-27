@@ -5,6 +5,10 @@ import 'package:simple_app/presentation/app_router.dart';
 import 'package:simple_app/presentation/note_detail/cubit/note_detail_cubit.dart';
 
 class NoteDetailScreen extends StatelessWidget {
+  static const textFieldTitleKey = 'TEXT_FIELD_TITLE';
+  static const textFieldCategoryKey = 'TEXT_FIELD_CATEGORY';
+  static const textFieldContentKey = 'TEXT_FIELD_CONTENT';
+
   const NoteDetailScreen({super.key});
 
   @override
@@ -15,7 +19,8 @@ class NoteDetailScreen extends StatelessWidget {
           case NoteDetailUpdate update:
             return Scaffold(
               appBar: AppBar(
-                title: Text(update.note.title),
+                title:
+                    Text(key: const Key(textFieldTitleKey), update.note.title),
                 backgroundColor: Theme.of(context).colorScheme.primaryFixedDim,
               ),
               body: Padding(
@@ -29,7 +34,9 @@ class NoteDetailScreen extends StatelessWidget {
                       children: [
                         ListTile(
                           title: const Text('Category'),
-                          subtitle: Text(update.note.category),
+                          subtitle: Text(
+                              key: const Key(textFieldCategoryKey),
+                              update.note.category),
                         ),
                         const SizedBox(
                           height: 16,
@@ -38,7 +45,9 @@ class NoteDetailScreen extends StatelessWidget {
                         const SizedBox(
                           height: 16,
                         ),
-                        Text(update.note.content),
+                        Text(
+                            key: const Key(textFieldContentKey),
+                            update.note.content),
                       ],
                     ),
                   ),

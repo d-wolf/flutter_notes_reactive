@@ -7,7 +7,7 @@ import 'package:simple_app/presentation/notes_list/ui/notes_grid_widget.dart';
 import 'package:simple_app/presentation/notes_list/ui/notes_list_widget.dart';
 
 class NotesListScreen extends StatelessWidget {
-  static const buttonAddKey = 'ADD';
+  static const buttonAddKey = 'BUTTON_ADD';
   static const buttonSwitchViewKey = 'BUTTON_SWITCH_VIEW';
   static const itemsListKey = 'ITEMS_LIST';
   static const itemsGridKey = 'ITEMS_GRID';

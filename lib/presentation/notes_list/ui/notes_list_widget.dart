@@ -30,7 +30,7 @@ class NotesListWidget extends StatelessWidget {
             ),
             clipBehavior: Clip.antiAlias,
             child: ListTile(
-              contentPadding: const EdgeInsets.all(8),
+              contentPadding: const EdgeInsets.all(8.0),
               title: Text(notes[index].title),
               subtitle: Text(notes[index].category),
               trailing: const Icon(Icons.chevron_right),

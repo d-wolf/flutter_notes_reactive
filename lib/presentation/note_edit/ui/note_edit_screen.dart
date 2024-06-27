@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_app/presentation/note_edit/cubit/note_edit_cubit.dart';
 
 class NoteEditScreen extends StatefulWidget {
-  static const formFieldTitleKey = 'form_field_title';
-  static const formFieldCategoryKey = 'form_field_category';
-  static const formFieldContentKey = 'form_field_content';
-  static const buttonUpdateKey = 'update';
+  static const formFieldTitleKey = 'FORM_FIELD_TITLE';
+  static const formFieldCategoryKey = 'FORM_FIELD_CATEGORY';
+  static const formFieldContentKey = 'FORM_FIELD_CONTENT';
+  static const buttonUpdateKey = 'BUTTON_UPDATE';
 
   const NoteEditScreen({super.key});
 
